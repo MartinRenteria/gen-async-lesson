@@ -28,8 +28,17 @@ class API {
     // code goes here for fetching the initial posts with the url, and options arguments
     // then handle the returned Promise with .then(response=>response.json()) followed by
     // chaining .then(jsonRes=>{ // put more in here }) and .catch(err=>{})
-
-
+    fetch(this._url, this._options)
+    .then(response => response.json())
+    // jsonRes changed to console.log("Retrieved Posts from API!")
+    .then(jsonRes => {
+      console.log("Retrieved Posts from API!")
+      console.log(jsonRes)
+      this._posts = jsonRes.data
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }
 
   getPosts() {
@@ -48,7 +57,7 @@ class API {
     return new Promise((resolve, reject) => {
       if (post) {
         // code goes here to add the new post onto the array of _posts
-
+        const post = this._posts.push(post);
         console.log('Post was created!');
         setTimeout(() => {
           resolve(post);
@@ -71,10 +80,10 @@ class API {
         // constructor value
         if(deletedPost) {
             // code goes here
-
+          resolve(deletedPost)
         } else {
           // code goes here
-
+          reject(new Error('Post was NOT deleted!'))
         }
       }, 500);
     });

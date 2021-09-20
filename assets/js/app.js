@@ -7,17 +7,22 @@ const printPostRow = (post) => {
 };
 
 const start = async () => {
-  await api.getInitialPosts();
-
-  // code goes below to call the api getInitialPosts method then call
+    // code goes below to call the api getInitialPosts method then call
   // api.getPosts() inside the callback of the successful aforementioned
   // call then if successful log '-----------------', loop thru the resolved
   // posts results and run printPostRow(post) for each one
   // log another '-----------------' after the loop and catch any errors
-
-
-
-};
+  try {
+await api.getInitialPosts();
+const currentPosts = await api.getPosts()
+console.log('--------------');
+currentPosts.forEach((post) => {
+  printPostRow(post);
+});
+console.log("--------------");
+} catch(err) {
+  document.write(err);
+}}
 
 const addANewPost = () => {
   const firstInput = prompt('What is your first name?');
@@ -42,8 +47,7 @@ const addANewPost = () => {
     // posts results and run printPostRow(post) for each one
     // log another '-----------------' after the loop and catch any errors
 
-  }
-};
+}};
 
 const deleteAPost = () => {
   
@@ -52,7 +56,6 @@ const deleteAPost = () => {
   // call then if successful log '-----------------', loop thru the resolved
   // posts results and run printPostRow(post) for each one
   // log another '-----------------' after the loop and catch any errors
-
 
 };
 
